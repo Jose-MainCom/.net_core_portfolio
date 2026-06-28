@@ -1,0 +1,159 @@
+﻿@model Domain.Entities.PortfolioProject
+
+@{
+    ViewData["Title"] = "Edit Project";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Edit Project</h1>
+
+        <form class="admin-form"
+              asp-controller="AdminProjects"
+              asp-action="Edit"
+              asp-route-id="@Model.Id"
+              method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="CreatedDate" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" />
+                <span asp-validation-for="Title" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description"></textarea>
+                <span asp-validation-for="Description" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TechnologiesUsed"></label>
+                <input asp-for="TechnologiesUsed" />
+                <span asp-validation-for="TechnologiesUsed" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category"
+                        asp-items="Html.GetEnumSelectList<Domain.Enums.ProjectCategory>()">
+                </select>
+                <span asp-validation-for="Category" class="validation-message"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <input asp-for="IsFeatured" type="checkbox" />
+                <label asp-for="IsFeatured"></label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Save
+                </button>
+
+                <a asp-controller="AdminProjects"
+                   asp-action="Index"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+        <section class="admin-section">
+            <h2>Project Links</h2>
+
+            <div class="form-actions">
+                <a asp-controller="AdminProjects"
+                   asp-action="CreateLink"
+                   asp-route-projectId="@Model.Id"
+                   class="button-secondary">
+                    Add Link
+                </a>
+            </div>
+
+            @if (Model.ProjectLinks.Any())
+            {
+                <div class="card-grid">
+                    @foreach (var projectLink in Model.ProjectLinks)
+                    {
+                        <article class="depth-card">
+                            <h3>@projectLink.Title</h3>
+                            <p>@projectLink.Url</p>
+
+                            <div class="form-actions">
+                                <a asp-controller="AdminProjects"
+                                   asp-action="EditLink"
+                                   asp-route-id="@projectLink.Id"
+                                   class="button-secondary">
+                                    Edit Link
+                                </a>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+        </section>
+
+        <section class="admin-section">
+            <h2>Project Images</h2>
+
+            <div class="form-actions">
+                <a asp-controller="AdminProjects"
+                   asp-action="CreateImage"
+                   asp-route-projectId="@Model.Id"
+                   class="button-secondary">
+                    Upload Image
+                </a>
+            </div>
+
+            @if (Model.ProjectImages.Any())
+            {
+                <div class="card-grid">
+                    @foreach (var projectImage in Model.ProjectImages.OrderBy(projectImage => projectImage.DisplayOrder))
+                    {
+                        <article class="depth-card">
+                            <img src="~/@projectImage.FilePath"
+                                 asp-append-version="true"
+                                 alt="@projectImage.AltText"
+                                 class="admin-project-image" />
+
+                            <h3>@projectImage.FileName</h3>
+
+                            <p>Display order: @projectImage.DisplayOrder</p>
+
+                            @if (projectImage.IsCoverImage)
+                            {
+                                <p><strong>Cover Image</strong></p>
+                            }
+
+                            <div class="form-actions">
+                                <a asp-controller="AdminProjects"
+                                   asp-action="EditImage"
+                                   asp-route-id="@projectImage.Id"
+                                   class="button-secondary">
+                                    Edit Image
+                                </a>
+
+                                <a asp-controller="AdminProjects"
+                                   asp-action="DeleteImage"
+                                   asp-route-id="@projectImage.Id"
+                                   class="button-secondary">
+                                    Delete Image
+                                </a>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+        </section>
+    </div>
+</section>

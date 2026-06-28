@@ -1,0 +1,94 @@
+﻿@model Domain.Entities.PortfolioProject
+
+@{
+    ViewData["Title"] = Model.Title;
+
+    var coverImage = Model.ProjectImages
+        .OrderByDescending(projectImage => projectImage.IsCoverImage)
+        .ThenBy(projectImage => projectImage.DisplayOrder)
+        .FirstOrDefault();
+
+    var galleryImages = Model.ProjectImages
+        .Where(projectImage => coverImage == null || projectImage.Id != coverImage.Id)
+        .OrderBy(projectImage => projectImage.DisplayOrder)
+        .ToList();
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">@Model.Category</p>
+
+        <h1>@Model.Title</h1>
+
+        @if (coverImage is not null)
+        {
+            <a href="~/@coverImage.FilePath"
+               data-lightbox>
+                <img src="~/@coverImage.FilePath"
+                     asp-append-version="true"
+                     alt="@coverImage.AltText"
+                     class="project-cover-image" />
+            </a>
+        }
+
+        <article class="depth-card depth-card-wide">
+            <h2>About this project</h2>
+
+            <p>@Model.Description</p>
+
+            <h3>Technologies</h3>
+
+            <p>@Model.TechnologiesUsed</p>
+
+            @if (Model.ProjectLinks.Any())
+            {
+                <h3>Project Links</h3>
+
+                <div class="hero-actions">
+                    @foreach (var projectLink in Model.ProjectLinks)
+                    {
+                        var linkIcon = projectLink.LinkType switch
+                        {
+                            Domain.Enums.ProjectLinkType.GitHub => "💻",
+                            Domain.Enums.ProjectLinkType.LiveDemo => "🌐",
+                            Domain.Enums.ProjectLinkType.Video => "🎥",
+                            Domain.Enums.ProjectLinkType.Documentation => "📄",
+                            Domain.Enums.ProjectLinkType.Blog => "📝",
+                            Domain.Enums.ProjectLinkType.Download => "⬇️",
+                            Domain.Enums.ProjectLinkType.Website => "🌍",
+                            _ => "🔗"
+                        };
+
+                        <a href="@projectLink.Url"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="button-secondary">
+                            @linkIcon @projectLink.Title
+                        </a>
+                    }
+                </div>
+            }
+        </article>
+
+        @if (galleryImages.Any())
+        {
+            <section class="admin-section">
+                <h2>Gallery</h2>
+
+                <div class="card-grid">
+                    @foreach (var projectImage in galleryImages)
+                    {
+                        <a href="~/@projectImage.FilePath"
+                           class="project-gallery-link"
+                           data-lightbox>
+                            <img src="~/@projectImage.FilePath"
+                                 asp-append-version="true"
+                                 alt="@projectImage.AltText"
+                                 class="project-gallery-image" />
+                        </a>
+                    }
+                </div>
+            </section>
+        }
+    </div>
+</section>

@@ -1,0 +1,51 @@
+﻿@model Domain.Entities.PortfolioProfile?
+
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+
+        <p class="eyebrow">Get In Touch</p>
+
+        <h1>Contact</h1>
+
+        <div class="card-grid">
+
+            <article class="depth-card">
+                <h2>Email</h2>
+
+                <p>
+                    @Model?.EmailAddress
+                </p>
+            </article>
+
+            <article class="depth-card">
+                <h2>LinkedIn</h2>
+
+                <p>
+                    <a href="@Model?.LinkedInUrl"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        View Profile
+                    </a>
+                </p>
+            </article>
+
+            <article class="depth-card">
+                <h2>GitHub</h2>
+
+                <p>
+                    <a href="@Model?.GitHubUrl"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        View Repository
+                    </a>
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+</section>

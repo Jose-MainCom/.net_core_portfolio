@@ -1,0 +1,80 @@
+﻿@model Presentation.ViewModels.Admin.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Portfolio Admin</h1>
+
+        <div class="card-grid">
+            <article class="depth-card">
+                <h2>Projects</h2>
+                <p>@Model.ProjectCount total</p>
+                <p>@Model.FeaturedProjectCount featured</p>
+
+                <div class="form-actions">
+                    <a asp-controller="AdminProjects"
+                       asp-action="Index"
+                       class="button-primary">
+                        Manage Projects
+                    </a>
+                </div>
+            </article>
+
+            <article class="depth-card">
+                <h2>Skills</h2>
+                <p>@Model.SkillCount total</p>
+
+                <div class="form-actions">
+                    <a asp-controller="AdminSkills"
+                       asp-action="Index"
+                       class="button-primary">
+                        Manage Skills
+                    </a>
+                </div>
+            </article>
+
+            <article class="depth-card">
+                <h2>Timeline</h2>
+                <p>@Model.TimelineItemCount items</p>
+
+                <div class="form-actions">
+                    <a asp-controller="AdminTimeline"
+                       asp-action="Index"
+                       class="button-primary">
+                        Manage Timeline
+                    </a>
+                </div>
+            </article>
+
+            <article class="depth-card">
+                <h2>Documents</h2>
+                <p>Current CV: @(Model.HasCurrentCv ? "Uploaded" : "Missing")</p>
+
+                <div class="form-actions">
+                    <a asp-controller="AdminDocuments"
+                       asp-action="Index"
+                       class="button-primary">
+                        Manage Documents
+                    </a>
+                </div>
+            </article>
+
+            <article class="depth-card">
+                <h2>Profile</h2>
+                <p>Edit personal and contact information.</p>
+
+                <div class="form-actions">
+                    <a asp-controller="AdminProfile"
+                       asp-action="Index"
+                       class="button-primary">
+                        Manage Profile
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

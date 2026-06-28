@@ -1,0 +1,30 @@
+﻿@model IReadOnlyList<Domain.Entities.TimelineItem>
+
+@{
+    ViewData["Title"] = "Experience";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Background</p>
+        <h1>Experience</h1>
+
+        <div class="card-grid">
+            @foreach (var timelineItem in Model)
+            {
+                <article class="depth-card">
+                    <h2>@timelineItem.Title</h2>
+                    <h3>@timelineItem.Organization</h3>
+
+                    <p>
+                        @timelineItem.StartDate.ToString("yyyy-MM-dd")
+                        -
+                        @(timelineItem.IsCurrent ? "Present" : timelineItem.EndDate?.ToString("yyyy-MM-dd"))
+                    </p>
+
+                    <p>@timelineItem.Description</p>
+                </article>
+            }
+        </div>
+    </div>
+</section>

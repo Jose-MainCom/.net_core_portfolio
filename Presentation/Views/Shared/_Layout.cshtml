@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Fredric Portfolio</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <nav class="site-navigation">
+            <a class="site-logo"
+               asp-controller="Home"
+               asp-action="Index">
+                Fredric Domvall
+            </a>
+
+            <button class="site-menu-button"
+                    type="button"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="site-navigation-links">
+                Menu
+            </button>
+
+            <div class="site-navigation-links" id="site-navigation-links">
+                <div class="site-navigation-public">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="About" asp-action="Index">About</a>
+                    <a asp-controller="Timeline" asp-action="Index">Experience</a>
+                    <a asp-controller="Projects" asp-action="Index">Projects</a>
+                    <a asp-controller="Skills" asp-action="Index">Skills</a>
+                    <a asp-controller="Contact" asp-action="Index">Contact</a>
+                    <a asp-controller="Documents" asp-action="DownloadCv">Download CV</a>
+                </div>
+
+                <div class="site-navigation-admin">
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a asp-controller="Admin" asp-action="Index">Admin</a>
+                        <a asp-controller="Account" asp-action="Settings">Account</a>
+
+                        <form asp-controller="Account"
+                              asp-action="Logout"
+                              method="post"
+                              class="navigation-logout-form">
+                            @Html.AntiForgeryToken()
+
+                            <button class="navigation-logout-button"
+                                    type="submit">
+                                Logout
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login">Login</a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <partial name="_StatusMessage" />
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer-content">
+            <p>&copy; @DateTime.Now.Year Fredric Domvall</p>
+        </div>
+    </footer>
+
+    <script src="~/js/navigation.js" asp-append-version="true"></script>
+    <script src="~/js/status-message.js" asp-append-version="true"></script>
+    <script src="~/js/lightbox.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

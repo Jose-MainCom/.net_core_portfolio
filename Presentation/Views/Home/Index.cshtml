@@ -1,0 +1,23 @@
+﻿@model Domain.Entities.PortfolioProfile?
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <div class="hero-section">
+            <p class="eyebrow">@Model?.ProfessionalTitle</p>
+
+            <h1>Hi, I’m @Model?.FirstName @Model?.LastName.</h1>
+
+            <p>
+                @Model?.AboutMe
+            </p>
+
+            <div class="hero-actions">
+                <a class="button-primary" asp-controller="Projects" asp-action="Index">View Projects</a>
+                <a class="button-secondary" asp-controller="Contact" asp-action="Index">Contact Me</a>
+            </div>
+        </div>
+    </div>
+</section>

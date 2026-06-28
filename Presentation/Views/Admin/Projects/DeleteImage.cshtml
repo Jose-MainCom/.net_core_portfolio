@@ -1,0 +1,43 @@
+﻿@model Domain.Entities.ProjectImage
+
+@{
+    ViewData["Title"] = "Delete Project Image";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Delete Project Image</h1>
+
+        <article class="depth-card depth-card-wide">
+            <img src="~/@Model.FilePath"
+                 asp-append-version="true"
+                 alt="@Model.AltText"
+                 class="admin-project-image" />
+
+            <h2>@Model.FileName</h2>
+            <p>Are you sure you want to delete this image?</p>
+
+            <form class="admin-form"
+                  asp-controller="AdminProjects"
+                  asp-action="DeleteImageConfirmed"
+                  asp-route-id="@Model.Id"
+                  method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions">
+                    <button type="submit" class="button-primary">
+                        Delete Image
+                    </button>
+
+                    <a asp-controller="AdminProjects"
+                       asp-action="Edit"
+                       asp-route-id="@Model.PortfolioProjectId"
+                       class="button-secondary">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </article>
+    </div>
+</section>

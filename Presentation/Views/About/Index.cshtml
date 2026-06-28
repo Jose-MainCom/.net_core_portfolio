@@ -1,0 +1,25 @@
+﻿@model Domain.Entities.PortfolioProfile?
+
+@{
+    ViewData["Title"] = "About";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+
+        <p class="eyebrow">About Me</p>
+
+        <h1>
+            @Model?.FirstName @Model?.LastName
+        </h1>
+
+        <h2>
+            @Model?.ProfessionalTitle
+        </h2>
+
+        <p>
+            @Model?.AboutMe
+        </p>
+
+    </div>
+</section>

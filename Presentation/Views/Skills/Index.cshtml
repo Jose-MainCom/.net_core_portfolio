@@ -1,0 +1,22 @@
+﻿@model IReadOnlyList<Domain.Entities.Skill>
+
+@{
+    ViewData["Title"] = "Skills";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Technical profile</p>
+        <h1>Skills</h1>
+
+        <div class="card-grid">
+            @foreach (var skill in Model)
+            {
+                <article class="depth-card">
+                    <h2>@skill.Name</h2>
+                    <p>@skill.Level</p>
+                </article>
+            }
+        </div>
+    </div>
+</section>

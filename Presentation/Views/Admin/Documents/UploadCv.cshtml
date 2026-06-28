@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Upload CV";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Upload CV</h1>
+
+        <form class="admin-form"
+              asp-controller="AdminDocuments"
+              asp-action="UploadCv"
+              method="post"
+              enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="cvFile">CV PDF File</label>
+                <input id="cvFile"
+                       name="cvFile"
+                       type="file"
+                       accept="application/pdf" />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Upload CV
+                </button>
+
+                <a asp-controller="AdminDocuments"
+                   asp-action="Index"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,36 @@
+﻿@model Domain.Entities.UploadedDocument?
+
+@{
+    ViewData["Title"] = "Manage Documents";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Documents</h1>
+
+        <div class="card-grid">
+            <article class="depth-card">
+                <h2>Current CV</h2>
+
+                @if (Model is null)
+                {
+                    <p>No CV has been uploaded yet.</p>
+                }
+                else
+                {
+                    <p>@Model.FileName</p>
+                    <p>@Model.UploadedDate.ToString("yyyy-MM-dd")</p>
+                }
+
+                <div class="form-actions">
+                    <a asp-controller="AdminDocuments"
+                       asp-action="UploadCv"
+                       class="button-primary">
+                        Upload New CV
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

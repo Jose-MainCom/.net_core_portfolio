@@ -1,0 +1,80 @@
+﻿@model Domain.Entities.PortfolioProfile
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Edit Profile</h1>
+
+        <form class="admin-form"
+              asp-controller="AdminProfile"
+              asp-action="Edit"
+              method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" />
+                <span asp-validation-for="FirstName" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" />
+                <span asp-validation-for="LastName" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProfessionalTitle"></label>
+                <input asp-for="ProfessionalTitle" />
+                <span asp-validation-for="ProfessionalTitle" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AboutMe"></label>
+                <textarea asp-for="AboutMe"></textarea>
+                <span asp-validation-for="AboutMe" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmailAddress"></label>
+                <input asp-for="EmailAddress" />
+                <span asp-validation-for="EmailAddress" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LinkedInUrl"></label>
+                <input asp-for="LinkedInUrl" />
+                <span asp-validation-for="LinkedInUrl" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GitHubUrl"></label>
+                <input asp-for="GitHubUrl" />
+                <span asp-validation-for="GitHubUrl" class="validation-message"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Save Profile
+                </button>
+
+                <a asp-controller="AdminProfile"
+                   asp-action="Index"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

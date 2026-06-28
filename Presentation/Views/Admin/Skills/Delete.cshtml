@@ -1,0 +1,40 @@
+﻿@model Domain.Entities.Skill
+
+@{
+    ViewData["Title"] = "Delete Skill";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Delete Skill</h1>
+
+        <article class="depth-card">
+            <h2>@Model.Name</h2>
+
+            <p>@Model.Level</p>
+
+            <p>Are you sure you want to delete this skill?</p>
+
+            <form class="admin-form"
+                  asp-controller="AdminSkills"
+                  asp-action="DeleteConfirmed"
+                  asp-route-id="@Model.Id"
+                  method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions">
+                    <button type="submit" class="button-primary">
+                        Delete Skill
+                    </button>
+
+                    <a asp-controller="AdminSkills"
+                       asp-action="Index"
+                       class="button-secondary">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </article>
+    </div>
+</section>

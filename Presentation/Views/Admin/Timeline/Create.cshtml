@@ -1,0 +1,71 @@
+﻿@model Domain.Entities.TimelineItem
+
+@{
+    ViewData["Title"] = "Create Timeline Item";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Create Timeline Item</h1>
+
+        <form class="admin-form"
+              asp-controller="AdminTimeline"
+              asp-action="Create"
+              method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" />
+                <span asp-validation-for="Title" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Organization"></label>
+                <input asp-for="Organization" />
+                <span asp-validation-for="Organization" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description"></textarea>
+                <span asp-validation-for="Description" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartDate"></label>
+                <input asp-for="StartDate" type="date" />
+                <span asp-validation-for="StartDate" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndDate"></label>
+                <input asp-for="EndDate" type="date" />
+                <span asp-validation-for="EndDate" class="validation-message"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <input asp-for="IsCurrent" type="checkbox" />
+                <label asp-for="IsCurrent"></label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Save Timeline Item
+                </button>
+
+                <a asp-controller="AdminTimeline"
+                   asp-action="Index"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

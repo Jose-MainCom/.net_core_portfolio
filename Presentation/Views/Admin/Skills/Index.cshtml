@@ -1,0 +1,47 @@
+﻿@model IReadOnlyList<Domain.Entities.Skill>
+
+@{
+    ViewData["Title"] = "Manage Skills";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+
+        <h1>Skills</h1>
+
+        <div class="form-actions">
+            <a asp-controller="AdminSkills"
+               asp-action="Create"
+               class="button-primary">
+                Create Skill
+            </a>
+        </div>
+
+        <div class="card-grid">
+            @foreach (var skill in Model)
+            {
+                <article class="depth-card">
+                    <h2 class="card-title-fixed">@skill.Name</h2>
+                    <p>@skill.Level</p>
+
+                    <div class="form-actions">
+                        <a asp-controller="AdminSkills"
+                           asp-action="Edit"
+                           asp-route-id="@skill.Id"
+                           class="button-secondary">
+                            Edit
+                        </a>
+
+                        <a asp-controller="AdminSkills"
+                           asp-action="Delete"
+                           asp-route-id="@skill.Id"
+                           class="button-secondary">
+                            Delete
+                        </a>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

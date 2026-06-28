@@ -1,0 +1,33 @@
+﻿@model Domain.Entities.PortfolioProfile?
+
+@{
+    ViewData["Title"] = "Manage Profile";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+
+        <h1>Profile</h1>
+
+        <div class="card-grid">
+            <article class="depth-card depth-card-wide">
+                <h2>@Model?.FirstName @Model?.LastName</h2>
+
+                <p>@Model?.ProfessionalTitle</p>
+
+                <p>@Model?.EmailAddress</p>
+
+                <p>@Model?.AboutMe</p>
+
+                <div class="form-actions">
+                    <a asp-controller="AdminProfile"
+                       asp-action="Edit"
+                       class="button-primary">
+                        Edit Profile
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

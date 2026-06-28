@@ -1,0 +1,61 @@
+﻿@model Domain.Entities.ProjectLink
+
+@{
+    ViewData["Title"] = "Edit Project Link";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Edit Project Link</h1>
+
+        <form class="admin-form"
+              asp-controller="AdminProjects"
+              asp-action="EditLink"
+              asp-route-id="@Model.Id"
+              method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="PortfolioProjectId" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" />
+                <span asp-validation-for="Title" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Url"></label>
+                <input asp-for="Url" />
+                <span asp-validation-for="Url" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LinkType"></label>
+                <select asp-for="LinkType"
+                        asp-items="Html.GetEnumSelectList<Domain.Enums.ProjectLinkType>()">
+                </select>
+                <span asp-validation-for="LinkType" class="validation-message"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Save Link
+                </button>
+
+                <a asp-controller="AdminProjects"
+                   asp-action="Edit"
+                   asp-route-id="@Model.PortfolioProjectId"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

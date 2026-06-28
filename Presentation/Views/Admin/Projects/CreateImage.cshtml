@@ -1,0 +1,66 @@
+﻿@model Domain.Entities.ProjectImage
+
+@{
+    ViewData["Title"] = "Upload Project Image";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Upload Project Image</h1>
+
+        <form class="admin-form"
+              asp-controller="AdminProjects"
+              asp-action="CreateImage"
+              asp-route-projectId="@Model.PortfolioProjectId"
+              method="post"
+              enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <input asp-for="PortfolioProjectId" type="hidden" />
+
+            <div class="form-group">
+                <label for="imageFile">Image File</label>
+                <input id="imageFile"
+                       name="imageFile"
+                       type="file"
+                       accept="image/*" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AltText"></label>
+                <input asp-for="AltText" />
+                <span asp-validation-for="AltText" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DisplayOrder"></label>
+                <input asp-for="DisplayOrder" type="number" />
+                <span asp-validation-for="DisplayOrder" class="validation-message"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <input asp-for="IsCoverImage" type="checkbox" />
+                <label asp-for="IsCoverImage"></label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Upload Image
+                </button>
+
+                <a asp-controller="AdminProjects"
+                   asp-action="Edit"
+                   asp-route-id="@Model.PortfolioProjectId"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

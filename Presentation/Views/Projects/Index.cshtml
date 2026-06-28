@@ -1,0 +1,47 @@
+﻿@model IReadOnlyList<Domain.Entities.PortfolioProject>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Portfolio</p>
+        <h1>Projects</h1>
+
+        <div class="card-grid">
+            @foreach (var project in Model)
+            {
+                var coverImage = project.ProjectImages
+                    .OrderByDescending(projectImage => projectImage.IsCoverImage)
+                    .ThenBy(projectImage => projectImage.DisplayOrder)
+                    .FirstOrDefault();
+
+                <article class="depth-card">
+                    @if (coverImage is not null)
+                    {
+                        <img src="~/@coverImage.FilePath"
+                             asp-append-version="true"
+                             alt="@coverImage.AltText"
+                             class="project-card-image" />
+                    }
+
+                    <h2>@project.Title</h2>
+
+                    <p>@project.Description</p>
+
+                    <p><strong>Technologies:</strong> @project.TechnologiesUsed</p>
+
+                    <div class="form-actions">
+                        <a asp-controller="Projects"
+                           asp-action="Details"
+                           asp-route-id="@project.Id"
+                           class="button-primary">
+                            View Details
+                        </a>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

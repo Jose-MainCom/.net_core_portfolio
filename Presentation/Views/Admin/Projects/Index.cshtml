@@ -1,0 +1,76 @@
+﻿@model IReadOnlyList<Domain.Entities.PortfolioProject>
+
+@{
+    ViewData["Title"] = "Manage Projects";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+
+        <h1>Projects</h1>
+
+        <div class="form-actions">
+            <a asp-controller="AdminProjects"
+               asp-action="Create"
+               class="button-primary">
+                Create Project
+            </a>
+        </div>
+
+        <div class="card-grid">
+            @foreach (var project in Model)
+            {
+                var coverImage = project.ProjectImages
+                    .OrderByDescending(projectImage => projectImage.IsCoverImage)
+                    .ThenBy(projectImage => projectImage.DisplayOrder)
+                    .FirstOrDefault();
+
+                <article class="depth-card">
+                    @if (coverImage is not null)
+                    {
+                        <a asp-controller="AdminProjects"
+                           asp-action="Edit"
+                           asp-route-id="@project.Id">
+                            <img src="~/@coverImage.FilePath"
+                                 asp-append-version="true"
+                                 alt="@coverImage.AltText"
+                                 class="admin-project-image" />
+                        </a>
+                    }
+
+                    <h2>@project.Title</h2>
+
+                    <p>@project.Category</p>
+
+                    <p>@project.Description</p>
+
+                    <p>Images: @project.ProjectImages.Count</p>
+
+                    <p>Links: @project.ProjectLinks.Count</p>
+
+                    @if (project.IsFeatured)
+                    {
+                        <p><strong>Featured Project</strong></p>
+                    }
+
+                    <div class="form-actions">
+                        <a asp-controller="AdminProjects"
+                           asp-action="Edit"
+                           asp-route-id="@project.Id"
+                           class="button-secondary">
+                            Edit
+                        </a>
+
+                        <a asp-controller="AdminProjects"
+                           asp-action="Delete"
+                           asp-route-id="@project.Id"
+                           class="button-secondary">
+                            Delete
+                        </a>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

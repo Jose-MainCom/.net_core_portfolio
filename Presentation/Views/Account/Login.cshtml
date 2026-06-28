@@ -1,0 +1,63 @@
+﻿@model Presentation.ViewModels.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Login</h1>
+
+        <form class="admin-form"
+              asp-controller="Account"
+              asp-action="Login"
+              method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <input asp-for="ReturnUrl" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password" class="validation-message"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <input asp-for="RememberMe" type="checkbox" />
+                <label asp-for="RememberMe"></label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit"
+                        class="button-primary">
+                    Login
+                </button>
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+
+            <p>
+                <a asp-controller="Account"
+                   asp-action="ForgotPassword">
+                    Forgot your password?
+                </a>
+            </p>
+        </form>
+    </div>
+</section>

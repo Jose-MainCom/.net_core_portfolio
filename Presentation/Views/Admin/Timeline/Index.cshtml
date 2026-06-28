@@ -1,0 +1,58 @@
+﻿@model IReadOnlyList<Domain.Entities.TimelineItem>
+
+@{
+    ViewData["Title"] = "Manage Timeline";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+
+        <h1>Timeline</h1>
+
+        <div class="form-actions">
+            <a asp-controller="AdminTimeline"
+               asp-action="Create"
+               class="button-primary">
+                Create Timeline Item
+            </a>
+        </div>
+
+        <div class="card-grid">
+            @foreach (var timelineItem in Model)
+            {
+                <article class="depth-card">
+                    <h2>@timelineItem.Title</h2>
+
+                    <h3>@timelineItem.Organization</h3>
+
+                    <p>
+                        @timelineItem.StartDate.ToString("yyyy-MM-dd")
+                        -
+                        @(timelineItem.IsCurrent
+                            ? "Present"
+                            : timelineItem.EndDate?.ToString("yyyy-MM-dd"))
+                    </p>
+
+                    <p>@timelineItem.Description</p>
+
+                    <div class="form-actions">
+                        <a asp-controller="AdminTimeline"
+                           asp-action="Edit"
+                           asp-route-id="@timelineItem.Id"
+                           class="button-secondary">
+                            Edit
+                        </a>
+
+                        <a asp-controller="AdminTimeline"
+                           asp-action="Delete"
+                           asp-route-id="@timelineItem.Id"
+                           class="button-secondary">
+                            Delete
+                        </a>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

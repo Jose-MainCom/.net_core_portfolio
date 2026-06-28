@@ -1,0 +1,60 @@
+﻿@model Presentation.ViewModels.Account.AccountSettingsViewModel
+
+@{
+    ViewData["Title"] = "Account Settings";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Account Settings</h1>
+
+        <form class="admin-form"
+              asp-controller="Account"
+              asp-action="Settings"
+              method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary"></div>
+            }
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CurrentPassword"></label>
+                <input asp-for="CurrentPassword" />
+                <span asp-validation-for="CurrentPassword" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NewPassword"></label>
+                <input asp-for="NewPassword" />
+                <span asp-validation-for="NewPassword" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmNewPassword"></label>
+                <input asp-for="ConfirmNewPassword" />
+                <span asp-validation-for="ConfirmNewPassword" class="validation-message"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-primary">
+                    Save Account Settings
+                </button>
+
+                <a asp-controller="Admin"
+                   asp-action="Index"
+                   class="button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

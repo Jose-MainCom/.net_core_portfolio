@@ -1,0 +1,42 @@
+﻿@model Domain.Entities.TimelineItem
+
+@{
+    ViewData["Title"] = "Delete Timeline Item";
+}
+
+<section class="page-segment page-segment-light">
+    <div class="segment-inner">
+        <p class="eyebrow">Administration</p>
+        <h1>Delete Timeline Item</h1>
+
+        <article class="depth-card">
+            <h2>@Model.Title</h2>
+
+            <h3>@Model.Organization</h3>
+
+            <p>@Model.Description</p>
+
+            <p>Are you sure you want to delete this timeline item?</p>
+
+            <form class="admin-form"
+                  asp-controller="AdminTimeline"
+                  asp-action="DeleteConfirmed"
+                  asp-route-id="@Model.Id"
+                  method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions">
+                    <button type="submit" class="button-primary">
+                        Delete Timeline Item
+                    </button>
+
+                    <a asp-controller="AdminTimeline"
+                       asp-action="Index"
+                       class="button-secondary">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </article>
+    </div>
+</section>
