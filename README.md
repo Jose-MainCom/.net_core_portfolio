@@ -199,7 +199,7 @@ Contains:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/<your-github-username>/<repository-name>.git
+git clone https://github.com/FredricDomvall/portfolio.git
 ```
 
 Open the solution in Visual Studio.
